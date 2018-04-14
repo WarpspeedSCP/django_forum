@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/warpspeedscp/sitemedia'
+MEDIA_ROOT = 'sitemedia'
 
 MEDIA_URL = 'usercontent/'
 
