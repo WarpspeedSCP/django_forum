@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    {% if Forums %}
+    <ol>
+        {% for forum in Forums %}
+        <li>
+            <a href="forum/{{ forum.name }}">{{forum.name}}</a>
+        </li>
+        {% endfor %}
+    </ol>
+    {% else %}
+    <p>No forums</p>
+    {% endif %}
+
+    Create forum : 
+    <form action="{{ request.path }}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}

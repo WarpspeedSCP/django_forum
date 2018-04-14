@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if Threads %}
+<ol>
+    {% for thread in Threads %}
+    <li>
+        <a href="{{ request.path}}/{{ thread.id }}">{{thread.name}}</a>
+        
+    </li>
+    {% endfor %}
+</ol>
+{% else %}
+<p>No threads</p>
+{% endif %}
+
+Create thread : 
+<form action="{{ request.path }}" method="post">
+    {% csrf_token %}
+    {{ newThreadForm }}
+    <input type="submit" value="Submit" />
+</form>
+
+
+{% endblock %}

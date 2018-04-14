@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    thread {{ Thread }} 
+    {% if Tags|length > 0 %} 
+        tagged as 
+        {% for tag in Tags %} 
+            {{ tag.tag_name }}{% if not forloop.last %}, {% else %}<br>{% endif %} 
+        {% endfor %}
+    {% else %}
+        <br>
+    {% endif %}
+
+
+    {% if Comments %}         
+        Comments:
+
+        <ol>
+            {% for comment in Comments %}
+            <li>
+                {{ comment.contents }} : {{ comment.creator }} : written at {{ comment.create_date_time }}
+                <br> Upvotes: {{ comment.upvote_count }} Downvotes: {{ comment.downvote_count }}
+                <br> Attachments: 
+                {% if comment.attachments.all.count > 0 %}
+                    {% for attachment in comment.attachments.all %} 
+                        <a href="/{{attachment.file.url}}">{{attachment.file.name}}</a> 
+                        {% if not forloop.last %},<br>{% else %}<br>{% endif %}
+                    {% endfor %}
+                
+                {% else %}
+                    None               
+                {% endif %}
+            
+            
+            </li>
+            {% endfor %}
+        </ol>
+
+    {% else %}
+        <p>No comments</p>
+    {% endif %}
+
+    <form enctype="multipart/form-data" action="{{ request.path }}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit" />
+    </form>
+
+{% endblock %}
