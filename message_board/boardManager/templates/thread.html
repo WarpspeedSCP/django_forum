@@ -21,7 +21,6 @@
             {% for comment in Comments %}
             <li>
                 {{ comment.contents }} : {{ comment.creator }} : written at {{ comment.create_date_time }}
-                <br> Upvotes: {{ comment.upvote_count }} Downvotes: {{ comment.downvote_count }}
                 <br> Attachments: 
                 {% if comment.attachments.all.count > 0 %}
                     {% for attachment in comment.attachments.all %} 

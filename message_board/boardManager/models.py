@@ -31,7 +31,6 @@ class Forum(models.Model):
     name = models.CharField(max_length=200, unique=True)
     create_date_time = models.DateTimeField(
         default=timezone.now, editable=False)
-    subscriber_count = models.IntegerField(default=0)
     thread_count = models.IntegerField(default=0)
     admins = models.ManyToManyField(
         User, limit_choices_to={'is_staff': True}, blank = True)
@@ -48,8 +47,6 @@ class Thread(models.Model):
     forum = models.name = models.ForeignKey(
         Forum, to_field='name', related_name='threads', on_delete=models.CASCADE)
     comment_count = models.IntegerField(default=0)
-    upvote_count = models.IntegerField(default=0)
-    downvote_count = models.IntegerField(default=0)
     creator = models.ForeignKey(
         User, to_field='username', related_name='threads', on_delete=models.SET_DEFAULT, default='[deleted]')
 
@@ -63,8 +60,6 @@ class Comment(models.Model):
     create_date_time = models.DateTimeField(
         default=timezone.now, editable=False)
     contents = models.TextField()
-    upvote_count = models.IntegerField(default=0)
-    downvote_count = models.IntegerField(default=0)
     creator = models.ForeignKey(
         User, to_field='username', related_name='comments', on_delete=models.SET_DEFAULT, default='[deleted]')
     thread = models.ForeignKey(
